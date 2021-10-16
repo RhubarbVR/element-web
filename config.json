@@ -1,7 +1,7 @@
 {
     "default_server_config": {
         "m.homeserver": {
-            "base_url": "https://matrix.toodeloo.xyz/",
+            "base_url": "https://matrix.rhubarbvr.net/",
             "server_name": "RhubarbVR.net"
         },
         "m.identity_server": {
@@ -30,7 +30,7 @@
     "default_theme": "light",
     "roomDirectory": {
         "servers": [
-            "matrix.org"
+            "RhubarbVR"
         ]
     },
     "piwik": {
