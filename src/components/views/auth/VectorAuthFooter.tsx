@@ -22,9 +22,7 @@ import { _t } from 'matrix-react-sdk/src/languageHandler';
 const VectorAuthFooter = () => {
     const brandingConfig = SdkConfig.get().branding;
     let links = [
-        { "text": "Blog", "url": "https://element.io/blog" },
-        { "text": "Twitter", "url": "https://twitter.com/element_hq" },
-        { "text": "GitHub", "url": "https://github.com/vector-im/element-web" },
+        { "text": "GitHub", "url": "https://github.com/RhubarbVR/" },
     ];
 
     if (brandingConfig && brandingConfig.authFooterLinks) {
@@ -43,7 +41,6 @@ const VectorAuthFooter = () => {
     return (
         <div className="mx_AuthFooter">
             { authFooterLinks }
-            <a href="https://matrix.org" target="_blank" rel="noreferrer noopener">{ _t('Powered by Matrix') }</a>
         </div>
     );
 };

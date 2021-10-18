@@ -155,6 +155,11 @@ export async function loadApp(fragParams: {}) {
         "./app");
     window.matrixChat = ReactDOM.render(await module.loadApp(fragParams),
         document.getElementById('matrixchat'));
+    if(window.electron){
+        
+        console.log("Build Rhubarb Ui");
+        
+    }
 }
 
 export async function showError(title: string, messages?: string[]) {
