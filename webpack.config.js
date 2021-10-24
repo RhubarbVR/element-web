@@ -528,6 +528,11 @@ module.exports = (env, argv) => {
                 files: [{ match: /.*Inter.*\.woff2$/ }],
             }),
             useHMR && new ReactRefreshWebpackPlugin(fullPageErrors ? undefined : { overlay: { entry: false } }),
+            
+            new webpack.NormalModuleReplacementPlugin(
+                /src[\/\\]customisations[\/\\]Security\.ts/,
+                path.resolve(__dirname, 'src/customisations/RhubarbVR.ts'),
+            ),
 
             // upload to sentry if sentry env is present
             process.env.SENTRY_DSN &&
