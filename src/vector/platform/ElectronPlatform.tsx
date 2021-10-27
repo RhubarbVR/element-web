@@ -340,7 +340,7 @@ export default class ElectronPlatform extends VectorBasePlatform {
     };
 
     getHumanReadableName(): string {
-        return 'Electron Platform'; // no translation required: only used for analytics
+        return 'RhubarbVR Platform'; // no translation required: only used for analytics
     }
 
     /**

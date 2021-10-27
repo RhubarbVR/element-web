@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
+import { MatrixClientPeg } from "matrix-react-sdk/src/MatrixClientPeg";
 import React from 'react';
 // add React and ReactPerf to the global namespace, to make them easier to access via the console
 // this incidentally means we can forget our React imports in JSX files without penalty.
@@ -30,7 +30,7 @@ import AutoDiscoveryUtils from 'matrix-react-sdk/src/utils/AutoDiscoveryUtils';
 import { AutoDiscovery } from "matrix-js-sdk/src/autodiscovery";
 import * as Lifecycle from "matrix-react-sdk/src/Lifecycle";
 import type MatrixChatType from "matrix-react-sdk/src/components/structures/MatrixChat";
-import SdkConfig, { parseSsoRedirectOptions } from "matrix-react-sdk/src/SdkConfig";
+import SdkConfig from "matrix-react-sdk/src/SdkConfig";
 import { logger } from "matrix-js-sdk/src/logger";
 
 import { parseQs, parseQsFromFragment } from './url_utils';
@@ -159,11 +159,10 @@ export async function loadApp(fragParams: {}) {
     const [userId] = await Lifecycle.getStoredSessionOwner();
     const hasPossibleToken = !!userId;
     const isReturningFromSso = !!params.loginToken;
-    const ssoRedirects = parseSsoRedirectOptions(config);
-    let autoRedirect = ssoRedirects.immediate === true;
+    let autoRedirect = false;
     // XXX: This path matching is a bit brittle, but better to do it early instead of in the app code.
     const isWelcomeOrLanding = window.location.hash === '#/welcome' || window.location.hash === '#';
-    if (!autoRedirect && ssoRedirects.on_welcome_page && isWelcomeOrLanding) {
+    if (!autoRedirect && isWelcomeOrLanding) {
         autoRedirect = true;
     }
     if (!hasPossibleToken && !isReturningFromSso && autoRedirect) {
@@ -181,6 +180,7 @@ export async function loadApp(fragParams: {}) {
     }
 
     const MatrixChat = sdk.getComponent('structures.MatrixChat');
+    window.globalThis.matPeg = MatrixClientPeg;
     return <MatrixChat
         onNewScreen={onNewScreen}
         makeRegistrationUrl={makeRegistrationUrl}
